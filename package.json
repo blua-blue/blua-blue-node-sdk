@@ -1,0 +1,31 @@
+{
+  "name": "blua-blue-node-sdk",
+  "version": "1.0.0",
+  "description": "nodeJS client for blua.blue",
+  "main": "client.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blua-blue/blua-blue-node-sdk.git"
+  },
+  "keywords": [
+    "cms",
+    "sdk",
+    "headless",
+    "client"
+  ],
+  "author": "neoan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blua-blue/blua-blue-node-sdk/issues"
+  },
+  "homepage": "https://github.com/blua-blue/blua-blue-node-sdk#readme",
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
