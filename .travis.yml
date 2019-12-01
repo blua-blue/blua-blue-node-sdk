@@ -3,7 +3,7 @@ node_js:
   - "stable"
 cache:
   directories:
-    - node_modules
+    - "$HOME/.npm"
 install:
   - npm install nyc -g
   - npm install mocha -g
