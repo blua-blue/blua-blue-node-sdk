@@ -8,8 +8,7 @@ const p = 'sampleUser1';
 describe('Client', function() {
     describe('#init() - OK', function() {
         it('should return a valid authentication', async function() {
-            validInstance = await Client.init(u,p);
-            assert(validInstance, 'Authentication failed');
+            await assert.doesNotReject(Client.init(u,p), 'Authentication failed');
         });
     });
     describe('#getArticle() - slug', function(){
@@ -28,7 +27,7 @@ describe('Client', function() {
     });
     describe('#init() - Fail', function() {
         it('should return a valid authentication', async function() {
-            assert.rejects(Client.init('demo1','sampleUser1'));
+            await assert.rejects(Client.init('demo1','sampleUser1'));
         });
     });
 
