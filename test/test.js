@@ -25,10 +25,5 @@ describe('Client', function() {
             assert(Array.isArray(articles));
         })
     });
-    describe('#init() - Fail', function() {
-        it('should return a valid authentication', async function() {
-            await assert.rejects(Client.init('demo1','sampleUser1'));
-        });
-    });
 
 });
