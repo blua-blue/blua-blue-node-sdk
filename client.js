@@ -11,6 +11,27 @@ const Client = {
             return config;
         });
     },
+    async _reauthenticate(error, userName, password, bluaUrl){
+        const originalRequest = error.config;
+
+        if (error.response.status === 401 && originalRequest.url === bluaUrl + '/login') {
+            return Promise.reject(error);
+        }
+
+        if (error.response.status === 401 && !originalRequest._retry) {
+
+            originalRequest._retry = true;
+            return Client.authenticate(userName, password).then(res => {
+                if (res.status >= 200 && res.status < 300) {
+                    Client.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${Client.token}`;
+                    return Client.axiosInstance(originalRequest);
+                }
+            }).catch(e => {
+                throw new Error('Failed too many times');
+            })
+        }
+        return Promise.reject(error);
+    },
     async authenticate(userName, password) {
         return new Promise((resolve, reject) => {
             this.axiosInstance.post('/login', {
@@ -36,23 +57,7 @@ const Client = {
         this.axiosInstance.interceptors.response.use((response) => {
             return response
         }, (error) => {
-            const originalRequest = error.config;
-
-            if (error.response.status === 401 && originalRequest.url === baseUri + '/login') {
-                return Promise.reject(error);
-            }
-            if (error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true;
-                return Client.authenticate(userName, password).then(res => {
-                    if (res.status >= 200 && res.status < 300) {
-                        Client.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${Client.token}`;
-                        return Client.axiosInstance(originalRequest);
-                    }
-                }).catch(e => {
-                    throw new Error('Failed too many times');
-                })
-            }
-            return Promise.reject(error);
+            return Client._reauthenticate(error, userName, password, baseUri);
         });
         if (!Client.token) {
             return this.authenticate(userName, password);
