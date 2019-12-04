@@ -3,6 +3,11 @@ const Client = {
     token: false,
     axiosInstance: false,
     currentUser: false,
+    cache: [],
+    findInCache(by, value){
+        let test = this.cache.find(item => item[by] = value);
+        return typeof test === 'undefined' ? false : test;
+    },
     _defaultRequest() {
         this.axiosInstance.interceptors.request.use((config) => {
             if (Client.token) {
@@ -66,8 +71,13 @@ const Client = {
     },
     async getArticle(slugOrId) {
         let isId = null !== slugOrId.match(/^[A-Z0-9]{32}$/);
-        let response = await this.axiosInstance.get('/article?' + (isId ? 'id=' : 'slug=') + slugOrId);
-        return response.data;
+        let response = this.findInCache(isId ? 'id' : 'slug', slugOrId);
+        if(!response){
+            response = await this.axiosInstance.get('/article?' + (isId ? 'id=' : 'slug=') + slugOrId);
+            response = response.data;
+            this.cache.push(response)
+        }
+        return response;
 
     },
     async getArticleList(condition) {
@@ -83,6 +93,7 @@ const Client = {
             i++;
         });
         let response = await this.axiosInstance.get('/articleList' + queryString);
+        this.cache = response.data;
         return response.data;
     }
 

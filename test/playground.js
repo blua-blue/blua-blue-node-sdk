@@ -1,7 +1,7 @@
 const client = require('../client.js');
 
 
-
+/*
 client.init('demo','sampleUser1s').then(async ()=>{
     // let articles = await client.getArticleList();
 
@@ -9,4 +9,4 @@ client.init('demo','sampleUser1s').then(async ()=>{
     console.log(await client.getArticle('hacktoberfest-shirt-arrived'));
 }).catch(err=>{
     console.log(err);
-});
+});*/
