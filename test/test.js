@@ -18,6 +18,13 @@ describe('Client', function() {
             assert.equal(article.slug, slug);
         })
     });
+    describe('#findInCache() - slug', function(){
+        it('should return an object with matching slugs', async function () {
+
+            let slug = 'sample-article', article = await Client.findInCache('slug', slug);
+            assert.equal(article.slug, slug);
+        })
+    });
     describe('#getArticleList()', function(){
         it('should return an object with matching slugs', async function () {
 
