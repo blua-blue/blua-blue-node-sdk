@@ -5,7 +5,7 @@ const Client = {
     currentUser: false,
     cache: [],
     findInCache(by, value){
-        let test = this.cache.find(item => item[by] = value);
+        let test = this.cache.find(item => item[by] === value);
         return typeof test === 'undefined' ? false : test;
     },
     _defaultRequest() {
