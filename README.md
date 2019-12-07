@@ -18,10 +18,11 @@ const client = require('blua-blue-node-sdk');
 let articles = [], article = {};
 
 client.init('user-name', 'password').then(async () => {
-    // a particular article
-    article = await client.getArticle('my-article');
+    
     // my articles
     articles = await client.getArticleList();
+    // a particular article
+    article = await client.getArticle('my-article');
 });
 
 ```
@@ -45,13 +46,6 @@ client.init('user-name', 'password').then(() => {
 });
 ``` 
 
-## getArticle()
-
-### parameter
-- string: slugOrId
-
-Returns an article object. Accepts the UUID or the unique article-slug of an article. 
-
 ## getArticleList()
 
 ### parameter
@@ -59,3 +53,17 @@ Returns an article object. Accepts the UUID or the unique article-slug of an art
 
 Returns articles met by the condition object. The condition defaults to all articles by current user.
 Please see the blua.blue API specs to see possible conditions.
+
+_NOTE: performance/speed:_ This call caches the fetched articles. When gathering all articles 
+(e.g. to render a menu / links), it is recommended to call (and wait for) this call first before 
+retrieving a single article.
+
+
+## getArticle()
+
+### parameter
+- string: slugOrId
+
+Returns an article object. Accepts the UUID or the unique article-slug of an article. 
+
+
