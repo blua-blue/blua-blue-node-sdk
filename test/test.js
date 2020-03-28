@@ -57,6 +57,16 @@ describe('Client', function() {
             }
 
         });
+        it('should try to reconnect', async function () {
+            errObj.config._retry = false;
+            errObj.config.url = 'https://blua.blue';
+            try{
+                let invoke = await Client._reauthenticate(errObj, 'sam', '1234', url)
+            } catch (e) {
+                assert(e, 'Failed too many times')
+            }
+
+        })
         it('should give up retrying', async function () {
             errObj.config._retry = true;
             errObj.config.url = 'http://different.url';
