@@ -4,7 +4,7 @@
   "description": "nodeJS client for blua.blue",
   "main": "client.js",
   "scripts": {
-    "test": "mocha"
+    "test": "nyc mocha"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,10 @@
   },
   "homepage": "https://github.com/blua-blue/blua-blue-node-sdk#readme",
   "devDependencies": {
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.3",
+    "nyc": "^15.0.0"
   },
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.2"
   }
 }
