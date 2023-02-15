@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/blua-blue/blua-blue-node-sdk#readme",
   "devDependencies": {
-    "mocha": "^6.2.3",
+    "mocha": "^10.2.0",
     "nyc": "^15.0.0"
   },
   "dependencies": {
